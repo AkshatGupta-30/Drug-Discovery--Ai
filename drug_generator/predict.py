@@ -9,7 +9,7 @@ from drug_generator.config import config
 from drug_generator.preprocessing.data_management import load_dataset, load_nn_model
 from drug_generator.preprocessing import preprocessors as pp
 
-loaded_model = load_nn_model(config.MODEL_FILE_NAME)
+loaded_model = load_nn_model()
 
 cv_data = load_dataset(config.TEST_FILE)
 preprocess = pp.preprocess_data()

@@ -14,7 +14,7 @@ def save_model(model_to_save):
     model_to_save.save(save_path)
     print("Model saved at", save_path)
 
-def load_nn_model(model_to_load):
-    save_path = os.path.join(config.SAVED_MODEL_PATH,model_to_load)
+def load_nn_model():
+    save_path = os.path.join(config.SAVED_MODEL_PATH, config.MODEL_FILE_NAME)
     pretrained_model = tf.keras.models.load_model(save_path)
     return pretrained_model

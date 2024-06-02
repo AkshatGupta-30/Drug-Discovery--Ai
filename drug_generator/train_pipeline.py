@@ -72,6 +72,6 @@ def mlflow_logs(model,model_history,name):
 
 if __name__ == "__main__":
     model_history = run_training()
-    loaded_model = load_nn_model(config.MODEL_FILE_NAME)
+    loaded_model = load_nn_model()
     mlflow.set_experiment("drug_molecule_discovery")
     mlflow_logs(loaded_model,model_history,config.MODEL_FILE_NAME)

@@ -1,3 +1,6 @@
 .venv/
 __pycache__
 mlruns
+.pytest_cache
+app
+app_data

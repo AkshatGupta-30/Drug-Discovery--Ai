@@ -2,7 +2,7 @@ FROM python:3.10.14-bookworm
 
 RUN pip install --upgrade pip
 
-COPY /drug_generator /app/drug_generator
+COPY drug_generator /app/drug_generator
 WORKDIR /app
 
 ENV PYTHONPATH=${PYTHONPATH}:/app/drug_generator

@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mysql:
+    build:
+      context: ./docker/mysql
+      dockerfile: Dockerfile
+    container_name: mysql_container
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./app_data/mysql_db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_mlflow
+      MYSQL_USER: mlflow_user
+      MYSQL_USER_PASSWORD: mlflow
+    restart: always
+
+  mlflow:
+    build:
+      context: ./docker/mlflow
+      dockerfile: Dockerfile
+    container_name: mlflow_container
+    ports:
+      - "5000:5000"
+    expose: 
+      - "5000"
+    depends_on:
+      - mysql
+    volumes:
+      - ./app_data/mlflow_tracked_data/mlruns:/mlruns
+    environment:
+      BACKEND_STORE_URI: mysql+pymysql://mlflow_user:mlflow@mysql:3306/db_mlflow
+      ARTIFACT_STORE_URI: /mlruns
+
+  model:
+    build:
+      context: ./docker/package
+      dockerfile: Dockerfile
+    container_name: drug_discovery
+    volumes:
+      - ./app_data:/app/app_data
+    depends_on:
+      - mlflow
